@@ -1,0 +1,146 @@
+﻿County,Latitude,Longitude,State,Boolean_Training
+Nogales,31.34,-110.93,Arizona,1
+Douglas,31.34,-109.55,Arizona,0
+Rio Rico,31.47,-110.98,Arizona,0
+Sierra Vista,31.55,-110.28,Arizona,0
+Green Valley,31.85,-110.99,Arizona,0
+Sahuarita,31.96,-110.96,Arizona,0
+Drexel Heights,32.14,-111.03,Arizona,0
+Flowing Wells,32.17,-111.01,Arizona,0
+Tucson,32.22,-110.93,Arizona,1
+Tanque Verde,32.25,-110.73,Arizona,0
+Catalina Foothills,32.3,-110.92,Arizona,0
+Casas Adobes,32.32,-110.995,Arizona,0
+Oro Valley,32.39,-110.97,Arizona,0
+Marana,32.44,-111.22,Arizona,1
+San Luis,32.49,-114.79,Arizona,0
+Somerton,32.6,-114.71,Arizona,0
+Fortuna Foothills,32.66,-114.41,Arizona,1
+Yuma,32.69,-114.63,Arizona,0
+Eloy,32.76,-111.55,Arizona,1
+Casa Grande,32.91,-111.77,Arizona,0
+Florence,33.03,-111.39,Arizona,0
+Maricopa,33.06,-112.05,Arizona,1
+San Tan Valley,33.18,-111.55,Arizona,0
+Queen Creek,33.25,-111.63,Arizona,0
+Chandler,33.31,-111.84,Arizona,0
+Gilbert,33.35,-111.79,Arizona,0
+Buckeye,33.37,-112.58,Arizona,0
+Apache Junction,33.415,-111.55,Arizona,0
+Mesa,33.42,-111.83,Arizona,0
+Tempe,33.43,-111.94,Arizona,0
+Goodyear,33.44,-112.36,Arizona,0
+Avondale,33.44,-112.35,Arizona,1
+Phoenix,33.45,-112.07,Arizona,0
+Scottsdale,33.49,-111.92,Arizona,0
+Paradise Valley,33.53,-111.94,Arizona,0
+Glendale,33.54,-112.19,Arizona,0
+Peoria,33.58,-112.24,Arizona,0
+Sun City,33.6,-112.27,Arizona,0
+Fountain Hills,33.6,-111.73,Arizona,0
+El Mirage,33.61,-112.32,Arizona,0
+Surprise,33.63,-112.37,Arizona,0
+Anthem,33.85,-112.13,Arizona,0
+New River,33.92,-112.14,Arizona,0
+Payson,34.23,-111.33,Arizona,0
+Lake Havasu City,34.48,-114.32,Arizona,0
+Prescott,34.54,-112.47,Arizona,0
+Prescott Valley,34.61,-112.32,Arizona,1
+Bullhead City,35.14,-114.53,Arizona,0
+Kingman,35.19,-114.05,Arizona,0
+Flagstaff,35.198,-111.65,Arizona,0
+Fairfield,41.272248,-73.38939533,Connecticut,1
+New Haven,41.41071665,-72.93208474,Connecticut,0
+Cumberland,39.37304694,-75.11061024,New Jersey,0
+Essex,40.78810181,-74.2481977,New Jersey,1
+Mercer,40.28334142,-74.70171256,New Jersey,0
+Monmouth,40.25891497,-74.22570238,New Jersey,0
+Morris,40.86197959,-74.54442031,New Jersey,0
+Salem,39.58734952,-75.34836233,New Jersey,1
+Sussex,41.13909498,-74.69046328,New Jersey,0
+Warren,40.85695125,-74.9973975,New Jersey,0
+Bronx,40.85272465,-73.86612953,New York,0
+Kings,40.64470405,-73.94810366,New York,0
+Nassau,40.74092321,-73.58878421,New York,0
+New York,40.78050302,-73.96546301,New York,1
+Queens,40.70711826,-73.81834231,New York,0
+Richmond,40.58072111,-74.15270413,New York,1
+Rockland,41.15424949,-74.03590374,New York,0
+Westchester,41.16445867,-73.74786805,New York,0
+Forsyth,36.13049761,-80.25628437,North Carolina,1
+New Hanover,34.24364949,-77.8826007,North Carolina,0
+Pitt,35.59355759,-77.3747667,North Carolina,1
+Transylvania,35.20218961,-82.79828243,North Carolina,0
+Wake,35.79001571,-78.65027786,North Carolina,0
+Cameron,26.12957341,-97.53207651,Texas,1
+Hidalgo,26.39672156,-98.18106617,Texas,0
+Tarrant,32.77038891,-97.29187193,Texas,0
+Dane,43.06731435,-89.41823836,Wisconsin,0
+Milwaukee,43.00700564,-87.96668924,Wisconsin,0
+Waukesha,43.01815748,-88.30454208,Wisconsin,1
+Calhoun,30.40605777,-85.19723202,Florida,0
+Collier,26.11749483,-81.34023213,Florida,1
+Escambia,30.70254844,-87.37711287,Florida,0
+Gadsden,30.57947764,-84.61367001,Florida,0
+Hillsborough,27.93024142,-82.30751053,Florida,0
+Holmes,30.8679085,-85.81421233,Florida,0
+Jackson,30.79550754,-85.21625604,Florida,1
+Jefferson,30.43780045,-83.89514421,Florida,0
+Lee,26.57883144,-81.82025438,Florida,0
+Liberty,30.24135058,-84.88292279,Florida,0
+Madison,30.44412547,-83.47003016,Florida,0
+Manatee,27.47125913,-82.29759681,Florida,0
+Martin,27.07389072,-80.43884589,Florida,0
+Miami-Dade,25.61477041,-80.56865167,Florida,0
+Okaloosa,30.70675204,-86.59641255,Florida,0
+Osceola,28.0626,-81.14951746,Florida,1
+Pasco,28.30920335,-82.39144976,Florida,0
+Pinellas,27.93174675,-82.72121983,Florida,1
+Polk,27.94888948,-81.69773071,Florida,0
+Santa Rosa,30.7313484,-87.01740384,Florida,0
+St. Johns,29.89738269,-81.43202168,Florida,0
+Taylor,30.04756764,-83.60301757,Florida,0
+Wakulla,30.16979934,-84.40278729,Florida,0
+Walton,30.65936126,-86.16271904,Florida,0
+Washington,30.61054261,-85.66540563,Florida,0
+Alameda,37.648081,-121.913304,California,0
+Butte,39.665959,-121.601919,California,1
+Colusa,39.177739,-122.237563,California,1
+Contra Costa,37.919479,-121.951543,California,0
+Fresno,36.761006,-119.655019,California,0
+Glenn,39.602546,-122.4017,California,0
+Imperial,33.040816,-115.355395,California,0
+Inyo,36.561977,-117.403927,California,0
+Kern,35.346629,-118.729506,California,0
+Kings,36.072478,-119.81553,California,0
+Lake,39.094802,-122.746757,California,0
+Los Angeles,34.196398,-118.261862,California,0
+Madera,37.210039,-119.749852,California,0
+Marin,38.051817,-122.745974,California,0
+Merced,37.194806,-120.722802,California,0
+Mono,37.915836,-118.875167,California,0
+Monterey,36.240107,-121.315573,California,0
+Napa,38.507351,-122.325995,California,0
+Orange,33.675687,-117.777207,California,0
+Placer,39.062032,-120.722718,California,0
+Riverside,33.729828,-116.002239,California,1
+Sacramento,38.450011,-121.340441,California,0
+San Benito,36.610702,-121.085296,California,0
+San Bernardino,34.85722,-116.181197,California,0
+San Diego,33.023604,-116.776117,California,0
+San Francisco,37.727239,-123.032229,California,0
+San Joaquin,37.935034,-121.272237,California,0
+San Luis Obispo,35.385227,-120.44754,California,0
+San Mateo,37.414664,-122.371542,California,0
+Santa Barbara,34.537378,-120.038485,California,0
+Santa Clara,37.220777,-121.690622,California,0
+Santa Cruz,37.012488,-122.007205,California,0
+Shasta,40.760522,-122.04355,California,1
+Solano,38.267226,-121.939594,California,0
+Sonoma,38.532574,-122.945194,California,0
+Stanislaus,37.562384,-121.002656,California,1
+Sutter,39.035257,-121.702758,California,0
+Tulare,36.230453,-118.780542,California,0
+Ventura,34.358742,-119.133143,California,1
+Yolo,38.679268,-121.903178,California,1
+Yuba,39.270026,-121.34428,California,1
