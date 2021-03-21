@@ -30,30 +30,30 @@ This will load and test the previously trained model. Note that the filepath to 
 To train all previously constructed models, the training.sh shell script can be used.
 
 Configuration files are in the following format (using models/configs/lstm_config.json as an example):  
->{  
->    "model": "lstm_model", # model name from the models/models.py file  
->    "data": {  
->>        "data_shape": [90, 4], # data shape of the time series  
->>        "samples_per_city": 1000, # the number of samples to randomly take from a location for training  
->>        "double_peak_multiplier": 1, # the oversampling rate for double peak cities (DPO models)  
->>        "temperature_augmentation": false # whether or not temperature augmentation should be included (TA models)  
->    },  
->    "compile": {  
->>        "optimizer": "Adam", # optimizer for training  
->>        "learning_rate": 0.0001, # initial learning rate  
->>        "loss": "mse" # loss function  
->    },  
->    "fit": {  
->>        "batch_size": 64, # batch size  
->>        "epochs": 100 # number of training epochs  
->    },  
->    "files": {  
->>        "training": "./data/train_data.pd", # filepath to the training data  
->>        "validation": "./data/val_data.pd", # filepath to the validation data  
->>        "testing": "./data/test_data.pd", # filepath to the testing data  
->>        "model": "./models/saved_models/lstm_model.h5" # filepath to save/load the model  
->    }  
->}  
+  {  
+      "model": "lstm_model", # model name from the models/models.py file  
+      "data": {  
+          "data_shape": [90, 4], # data shape of the time series  
+          "samples_per_city": 1000, # the number of samples to randomly take from a location for training  
+          "double_peak_multiplier": 1, # the oversampling rate for double peak cities (DPO models)  
+          "temperature_augmentation": false # whether or not temperature augmentation should be included (TA models)  
+      },  
+      "compile": {  
+          "optimizer": "Adam", # optimizer for training  
+          "learning_rate": 0.0001, # initial learning rate  
+          "loss": "mse" # loss function  
+      },  
+      "fit": {  
+          "batch_size": 64, # batch size  
+          "epochs": 100 # number of training epochs  
+      },  
+      "files": {  
+          "training": "./data/train_data.pd", # filepath to the training data  
+          "validation": "./data/val_data.pd", # filepath to the validation data  
+          "testing": "./data/test_data.pd", # filepath to the testing data  
+          "model": "./models/saved_models/lstm_model.h5" # filepath to save/load the model  
+      }  
+  }  
 
 ## results
 This folder contains previously run model predictions and outputs, both smoothed and unsmoothed (raw) for all datasets.
