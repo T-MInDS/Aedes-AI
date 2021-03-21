@@ -29,7 +29,8 @@ To test the same model, run the training code with extra arguments:
 This will load and test the previously trained model. Note that the filepath to the model is in the config file.
 To train all previously constructed models, the training.sh shell script can be used.
 
-Configuration files are in the following format (using models/configs/lstm_config.json as an example):  
+Configuration files are in the following format (using models/configs/lstm_config.json as an example):
+
   {  
       "model": "lstm_model", # model name from the models/models.py file  
       "data": {  
