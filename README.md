@@ -9,7 +9,7 @@ This folder contains pickled pandas dataframes for the training, validation, and
 Additionally, there is a csv listing the cities that are considered "Double Peak" cities.
 
 ## figures
-This folder contains code for no-geographic visualizations.
+This folder contains code for non-geographic visualizations.
 
 ## map
 This folder contains code for geographic visualizations.
