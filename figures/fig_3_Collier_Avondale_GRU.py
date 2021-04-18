@@ -1,8 +1,8 @@
 import numpy as np, pandas as pd
 import os, argparse, json, sys
 import matplotlib.pyplot as plt
-sys.path.append("./utils")
 from collections import defaultdict
+sys.path.append("./utils")
 from match_peaks import compare_peaks, min_offset
 
 def load_results_data(filename,year):

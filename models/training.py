@@ -3,9 +3,11 @@ import tensorflow.keras.backend as K
 import argparse, os, json
 import pandas as pd, numpy as np
 from sklearn.preprocessing import MinMaxScaler
-from models import models, visuals
+import sys
+sys.path.append("./models")
+import models, visuals
 
-#os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 np.random.seed(14)
 
 def parse_args():

@@ -1,11 +1,12 @@
 import tensorflow as tf
 import tensorflow.keras.backend as K
-import os, json
+import os, json, sys
 import pandas as pd, numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import r2_score
 from itertools import chain
-import models.models
+sys.path.append("./models")
+import models
 from glob import glob
 from scipy.signal import savgol_filter
 

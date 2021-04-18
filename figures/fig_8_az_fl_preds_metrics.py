@@ -1,9 +1,10 @@
-import os
+import os, sys
 import pandas as pd, numpy as np
 from glob import glob
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from utils.perf_metrics import *
+sys.path.append("./utils")
+from perf_metrics import *
 
 def autolabel(rects,ax):
     for rect in rects:

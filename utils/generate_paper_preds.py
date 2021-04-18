@@ -5,10 +5,13 @@ import pandas as pd, numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import r2_score
 from itertools import chain
-import models.models
 from glob import glob
 from scipy.signal import savgol_filter
-from utils.generate_predictions import *
+import sys
+sys.path.append("./utils")
+sys.path.append("./models")
+from generate_predictions import *
+import models
 
 def main():
     config="./models/Configs/gru_config.json"

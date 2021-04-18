@@ -5,7 +5,9 @@ from scipy.stats import pearsonr
 from itertools import chain
 from glob import glob
 import pdb
-from utils.perf_metrics import *
+import sys
+sys.path.append("./utils")
+from perf_metrics import *
 
 def scale_loc_yr():
     files=glob("./results/raw/*")

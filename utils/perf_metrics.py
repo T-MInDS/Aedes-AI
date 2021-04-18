@@ -4,7 +4,6 @@ from sklearn.metrics import r2_score, mean_squared_error, auc
 from scipy.stats import pearsonr
 from itertools import chain
 from glob import glob
-import pdb
 
 def score(mols, nn, return_mse=False):
     r2=r2_score(mols,nn)

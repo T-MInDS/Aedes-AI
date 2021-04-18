@@ -1,11 +1,12 @@
-import os
+import os, sys
 import pandas as pd, numpy as np
 from itertools import chain
 from glob import glob
 import math
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from utils.perf_metrics import *
+sys.path.append("./utils")
+from perf_metrics import *
 
 
 def sort_state(data,state):
