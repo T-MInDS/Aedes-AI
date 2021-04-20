@@ -10,7 +10,7 @@ sys.path.append("./utils")
 from perf_metrics import *
 
 def scale_loc_yr():
-    files=glob("./results/raw/*")
+    files=glob("./results/Test/*")
     to_save=list()
     for file in files:
         if "Train" in file:
@@ -38,7 +38,7 @@ def scale_loc_yr():
 
 
 def scale_global():
-    files=glob("./results/Raw/*")
+    files=glob("./results/Test/*")
     to_save=list()
     for file in files:
         data=pd.read_csv(file)
