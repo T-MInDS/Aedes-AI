@@ -51,7 +51,7 @@ def main():
                 to_save.append(np.concatenate([np.reshape(marker, (len(marker),1)), results],axis=1))
             to_save=np.asarray(list(chain(*to_save)))
             to_save=pd.DataFrame(to_save, columns=['Model','County','Year','Month','Day','MoLS','Neural Network'])
-            to_save.to_csv("./results/Raw/"+marker_name+"_"+model_name+"_predictions.csv",index=False)
+            to_save.to_csv("./results/"marker_name"/"+marker_name+"_"+model_name+"_predictions.csv",index=False)
 
 
 if __name__ == '__main__':
