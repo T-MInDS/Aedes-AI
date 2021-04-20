@@ -24,7 +24,7 @@ def autolabel(rects,ax):
 
 if __name__ == '__main__':
         
-    ddir="./results/Raw/"
+    ddir="./results/Test/"
     fil1=ddir+"Test_lstm_model_predictions.csv"
     fil2=ddir+"Test_lstm_model_dpo_predictions.csv"
     fil3=ddir+"Test_lstm_model_dpo_ta_predictions.csv"
