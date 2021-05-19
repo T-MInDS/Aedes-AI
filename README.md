@@ -20,11 +20,11 @@ Each model has an associated config file in .json format in models/configs.
 The configuration file contains associated information about model parameters, the type of model, and data paths.
 To train a model, run the training.py file with command line arguments:
 
-  **python models/training.py <config filepath>**
+  **python models/training.py \<config filepath\>**
   
 To test the same model, run the training code with extra arguments:
 
-  **python models/training.py <config filepath> --load --test**
+  **python models/training.py \<config filepath\> --load --test**
   
 This will load and test the previously trained model. Note that the filepath to the model is in the config file.
 To train all previously constructed models, the training.sh shell script can be used.
