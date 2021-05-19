@@ -11,10 +11,9 @@ import sys
 sys.path.append("./utils")
 sys.path.append("./models")
 from generate_predictions import *
-import models
 
 def main():
-    config="./models/Configs/gru_config.json"
+    config="./models/configs/gru_config.json"
     model_files=glob("./models/saved_models/*")
     
     data_files=['./data/train_data.pd','./data/val_data.pd','./data/test_data.pd']
@@ -34,6 +33,7 @@ def main():
         else:
             is_train=0
             marker_name="Val"
+        pdb.set_trace()
         for model_file in model_files:
             to_save=list()
             if os.path.exists(model_file):
@@ -51,7 +51,7 @@ def main():
                 to_save.append(np.concatenate([np.reshape(marker, (len(marker),1)), results],axis=1))
             to_save=np.asarray(list(chain(*to_save)))
             to_save=pd.DataFrame(to_save, columns=['Model','County','Year','Month','Day','MoLS','Neural Network'])
-            to_save.to_csv("./results/"marker_name"/"+marker_name+"_"+model_name+"_predictions.csv",index=False)
+            to_save.to_csv("./results/"+marker_name+"_"+model_name+"_predictions.csv",index=False)
 
 
 if __name__ == '__main__':
