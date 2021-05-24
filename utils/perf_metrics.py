@@ -14,7 +14,7 @@ def score(mols, nn, return_mse=False):
     return (max(0,r2), rmse, auc_diff, pearson[0], mse) if return_mse==True else (max(0,r2), rmse, auc_diff, pearson[0])
 
 def gen_perf_metrics(data,seasonal=False,exception=[]):
-    groups=data.groupby(['County','Year'])
+    groups=data.groupby(['Location','Year'])
     r2s,rmses,auc_diffs,pearsons=list(),list(),list(),list()
     probs=list()
     for group in groups:
@@ -39,9 +39,9 @@ def gen_perf_metrics(data,seasonal=False,exception=[]):
     return to_return
 
 def gen_county_perf_metrics(data,seasonal=False,exception=[]):
-    groups=data.groupby(['County','Year'])
+    groups=data.groupby(['Location','Year'])
     r2s,rmses,auc_diffs,pearsons=list(),list(),list(),list()
-    counties,yrs=list(),list()
+    locs,yrs=list(),list()
     for group in groups:
         if group[0] not in exception:
             mols=group[1]["MoLS"]
@@ -52,10 +52,10 @@ def gen_county_perf_metrics(data,seasonal=False,exception=[]):
                 rmses.append(rmse)
                 auc_diffs.append(auc_diff)
                 pearsons.append(pearson)
-                counties.append(group[0][0])
+                locs.append(group[0][0])
                 yrs.append(group[0][1])
     results=pd.DataFrame()
-    results["Counties"]=np.asarray(counties)
+    results["Location"]=np.asarray(locs)
     results["Year"]=np.asarray(yrs)
     results["R2"]=np.asarray(r2s)
     results["RMSE"]=np.asarray(rmses)

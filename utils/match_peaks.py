@@ -13,7 +13,7 @@ def parse_args():
 
 def load_results_data(filename):
     results = pd.read_csv(filename)
-    groups = results.groupby(by = 'County')
+    groups = results.groupby(by = 'Location')
     output = {}
     for citystate, subset in groups:
         city, state = citystate.split(',')
@@ -145,9 +145,10 @@ def main():
             
             # Mean = mean(D for c, for s, for y)
 
-    terms = args.results.split('_')
-    modname = '_'.join([terms[1]] + terms[3:-1])
-    directory = args.results.split('/')[1]
+    if False:
+        terms = args.results.split('_')
+        modname = '_'.join([terms[1]] + terms[3:-1])
+        directory = args.results.split('/')[1]
 
     if args.county:
         fake, real = output[county]
@@ -158,10 +159,10 @@ def main():
             plt.plot(x, y, marker = 'o', color = 'black')
         plt.show()
 
-    on_table.to_csv('./results/Tables/'+ directory + '/' + modname + '_D_on_table.csv')
-    off_table.to_csv('./results/Tables/'+ directory + '/' + modname + '_D_off_table.csv')
-    with open('./results/Tables/'+ directory + '/' + modname + '_latex.txt', 'w') as fp:
-        fp.write(to_latex(on_table, off_table, modname))
+    on_table.to_csv('D_on_table.csv')
+    off_table.to_csv('D_off_table.csv')
+    #with open('./results/Tables/'+ directory + '/' + modname + '_latex.txt', 'w') as fp:
+    #    fp.write(to_latex(on_table, off_table, modname))
 
 if __name__ == '__main__':
     main()

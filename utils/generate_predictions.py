@@ -102,8 +102,6 @@ Input Parameters:
           
   data_shape: shape of one training sample for the model (90x4)
 
-  mols: boolean set to False if predictions should be generated without MoLS data
-
   scaler: MinMaxScaler to scale data to [0,1] and based off of training data.
              Pass previously calculated scaler, otherwise keep default: None.
 
@@ -118,33 +116,29 @@ Returns:
 def gen_preds(model, data, data_shape, scaler=None, fit_scaler=False):
     # Scale data to [0,1] and reformat to 90-day samples
     if fit_scaler==True:
-        X,counties, scaler,mols = format_data(data, data_shape, None, fit_scaler)
+        X, locs, scaler, mols = format_data(data, data_shape, None, fit_scaler)
     else:
-        X,counties,mols = format_data(data, data_shape, scaler, fit_scaler)
+        X, locs, mols = format_data(data, data_shape, scaler, fit_scaler)
+
+    model_preds=np.asarray(model.predict(X[:,:,0:-1]))
+    # Scale to original value range and concatenate results
+    data_mols=np.zeros((len(model_preds),X.shape[-1]))
+    data_mols[:,-1]=X[:,-1,-1]
+    data_mols=scaler.inverse_transform(data_mols)
+
+    data_nn=np.zeros((len(model_preds),X.shape[-1]))
+    data_nn[:,-1]=model_preds[:,0]
+    data_nn=scaler.inverse_transform(data_nn)        
+    data_nn[:,-1]=smooth(data_nn[:,-1])
    
-    unique_counties=np.unique(counties[:,0])
-    results=list()
-    # Generate model predictions by county
-    for i in range(len(unique_counties)):#county in unique_counties:
-        county=unique_counties[i]
-        loc=np.argwhere(counties[:,0]==county)[:,0]
-        X_co, co= X[loc,:,:], counties[loc,:]
-        model_preds=np.asarray(model.predict_on_batch(tf.convert_to_tensor(X_co[:,:,0:-1])))
+    if mols==False:
+        results=np.concatenate([locs,np.zeros((len(data_mols),1)),
+                       np.reshape(data_nn[:,-1],(len(data_nn),1))], axis=1)
+    else:
+        results=np.concatenate([locs,np.reshape(data_mols[:,-1],(len(data_mols),1)),
+                       np.reshape(data_nn[:,-1],(len(data_nn),1))], axis=1)
 
-        # Scale to original value range and concatenate results
-        data_preds=np.zeros([len(X_co), data_shape[0], data_shape[1]+1])
-        data_orig=np.zeros([len(X_co), data_shape[0], data_shape[1]+1])
-        for i in range(len(X_co)):
-            data_preds[i,:,:]=scaler.inverse_transform(np.concatenate([X_co[i,:,0:-1],model_preds[i,0]*np.ones((data_shape[0],1))], axis=1))
-            data_orig[i,:,:]=scaler.inverse_transform(X_co[i,:,:])
-        data_preds[:,-1,-1]=smooth(data_preds[:,-1,-1])
-        if mols==False:
-            results.append(np.concatenate([co[:,:],np.zeros((len(data_orig),1)),
-                           np.reshape(data_preds[:,-1,-1],(len(data_preds),1))], axis=1))
-        else:
-            results.append(np.concatenate([co[:,:],np.reshape(data_orig[:,-1,-1],(len(data_orig),1)),
-                           np.reshape(data_preds[:,-1,-1],(len(data_preds),1))], axis=1))
-
-    results=np.asarray(list(chain(*results)))        
     return results if not fit_scaler else (results,scaler)
     
+    
+
