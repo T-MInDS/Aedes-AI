@@ -1,14 +1,14 @@
 {
-    "model": "ff_model",
+    "model": "lr_model",
     "data": {
         "data_shape": [90, 4],
         "samples_per_city": 1000,
         "double_peak_multiplier": 1,
-        "temperature_augmentation": false
+        "temperature_augmentation": true
     },
     "compile": { 
-        "optimizer": "Adam",
-        "learning_rate": 0.0001,
+        "optimizer": "SGD",
+        "learning_rate": 0.001,
         "loss": "mse"
     },
     "fit": {
@@ -19,6 +19,6 @@
         "training": "./data/train_data.pd",
         "validation": "./data/val_data.pd",
         "testing": "./data/test_data.pd",
-        "model": "./models/saved_models/ff_model.h5"
+        "model": "./models/saved_models/lr_model_ta.h5"
     }
 }

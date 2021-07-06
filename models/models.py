@@ -1,5 +1,14 @@
 import tensorflow as tf
 
+def lr_model(input_shape):
+    xin = tf.keras.layers.Input(input_shape)
+    
+    f = tf.keras.layers.Flatten()(xin)
+
+    xout = tf.keras.layers.Dense(1, activation = 'relu')(f)
+    
+    return tf.keras.models.Model(xin, xout)
+
 def ff_model(input_shape):
     xin = tf.keras.layers.Input(input_shape)
     
