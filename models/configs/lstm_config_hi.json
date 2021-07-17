@@ -19,6 +19,6 @@
         "training": "./data/train_data.pd",
         "validation": "./data/val_data.pd",
         "testing": "./data/test_data.pd",
-        "model": "./models/saved_models/lstm_model.h5"
+        "model": "./models/saved_models/lstm_model_hi.h5"
     }
 }
