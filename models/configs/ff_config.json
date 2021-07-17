@@ -3,8 +3,8 @@
     "data": {
         "data_shape": [90, 4],
         "samples_per_city": 1000,
-        "double_peak_multiplier": 1,
-        "temperature_augmentation": false
+        "summer_samples": 0,
+        "winter_samples": 0
     },
     "compile": { 
         "optimizer": "Adam",

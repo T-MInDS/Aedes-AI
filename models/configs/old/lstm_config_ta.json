@@ -1,10 +1,10 @@
 {
-    "model": "lr_model",
+    "model": "lstm_model",
     "data": {
         "data_shape": [90, 4],
         "samples_per_city": 1000,
-        "summer_samples": 0,
-        "winter_samples": 0
+        "double_peak_multiplier": 1,
+        "temperature_augmentation": true
     },
     "compile": { 
         "optimizer": "Adam",
@@ -19,6 +19,6 @@
         "training": "./data/train_data.pd",
         "validation": "./data/val_data.pd",
         "testing": "./data/test_data.pd",
-        "model": "./models/saved_models/lr_model.h5"
+        "model": "./models/saved_models/lstm_model_ta.h5"
     }
 }

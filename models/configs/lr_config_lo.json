@@ -4,7 +4,7 @@
         "data_shape": [90, 4],
         "samples_per_city": 1000,
         "summer_samples": 0,
-        "winter_samples": 0
+        "winter_samples": 1000
     },
     "compile": { 
         "optimizer": "Adam",
