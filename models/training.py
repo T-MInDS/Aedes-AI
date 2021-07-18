@@ -127,7 +127,7 @@ def main():
         model.compile(optimizer = getattr(tf.keras.optimizers, config['compile']['optimizer'])(lr = config['compile']['learning_rate']),
                       loss = config['compile']['loss'], metrics = [r2_keras])
         history = model.fit(X_train, y_train, validation_data = (X_val, y_val), **config['fit'],
-                  callbacks = [tf.keras.callbacks.TensorBoard(), tf.keras.callbacks.EarlyStopping(patience = 30, restore_best_weights = True)])
+                  callbacks = [tf.keras.callbacks.TensorBoard(), tf.keras.callbacks.EarlyStopping(patience = 15, restore_best_weights = True)])
         model.save(model_file, save_format = 'h5')
 
         visuals.plot_loss(history, args.config.split('.')[0].split('/')[-1])
