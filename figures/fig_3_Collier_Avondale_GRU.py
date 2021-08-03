@@ -7,7 +7,7 @@ from match_peaks import compare_peaks, min_offset
 
 def load_results_data(filename,year):
     results = pd.read_csv(filename)
-    groups = results.groupby(by = 'County')
+    groups = results.groupby(by = 'Location')
     output = {}
     for citystate, subset in groups:
         city, state = citystate.split(',')
@@ -44,7 +44,7 @@ def plot_thresholds(filename,county,modname,ax):
     ax.legend()
 
 def main():
-    filename='./results/Test/Test_gru_model_predictions.csv'
+    filename='./results/Test/Test_gru_predictions.csv'
     ct1=('Collier','Florida','2020')
     ct2=('Avondale','Arizona','2020')
     # modname = filename.split("_")[1]
@@ -58,7 +58,7 @@ def main():
     fig1 = plt.gcf()
     plt.show()
     plt.draw()
-    fig1.savefig("Collier-Avondale_"+modname+".png", dpi=300)
+    #fig1.savefig("Collier-Avondale_"+modname+".png", dpi=300)
 
 if __name__ == '__main__':
     main()
