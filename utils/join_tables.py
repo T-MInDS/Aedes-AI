@@ -1,17 +1,19 @@
 import pandas as pd
 from collections import defaultdict
 import matplotlib.pyplot as plt
+import pdb
 
-TABLE_BASES = ['ff', 'ff_dpo', 'ff_ta', 'ff_dpo_ta',
-               'gru', 'gru_dpo', 'gru_ta', 'gru_dpo_ta',
-               'lstm', 'lstm_dpo', 'lstm_ta', 'lstm_dpo_ta']
+TABLE_BASES = ['ff', 'ff_hi', 'ff_lo', 'ff_hi_lo',
+               'gru', 'gru_hi', 'gru_lo', 'gru_hi_lo',
+               'lstm', 'lstm_hi', 'lstm_lo', 'lstm_hi_lo']
 
 def build_table(table_bases, metric, mode):
     columns = ["Model", "20%", "40%", "60%", "80%"]
     data = []
     for base in table_bases:
-        fname = './results/Tables/Test/' + base + '_' + metric + '_table.csv'
+        fname = './results/Threshold_tables/Test/' + base + '_' + metric + '_table.csv'
         tab = pd.read_csv(fname, header = 0)
+        #tab = tab[(tab.State=='Arizona') & (tab.City=='Avondale') & (tab.Year==2020)]
         add_to_data = [base]
         for threshold in ["20%", "40%", "60%", "80%"]:
             if mode == 'mean':
@@ -76,21 +78,22 @@ def main():
     std_tab = merge_tables(std_tab_d_on, std_tab_d_off)
     nan_tab = merge_tables(nan_tab_d_on, nan_tab_d_off)
 
-    mean_tab.to_csv('./results/Tables/Test/all_mean.csv')
-    std_tab.to_csv('./results/Tables/Test/all_std.csv')
-    nan_tab.to_csv('./results/Tables/Test/all_nan.csv')
+    mean_tab.to_csv('./results/Threshold_tables/Test/all_mean.csv')
+    std_tab.to_csv('./results/Threshold_tables/Test/all_std.csv')
+    nan_tab.to_csv('./results/Threshold_tables/Test/all_nan.csv')
+
 
     on_rank = rank_models(mean_tab_d_on, std_tab_d_on)
     off_rank = rank_models(mean_tab_d_off, std_tab_d_off)
 
     on_rev, off_rev = reverse_rank(on_rank), reverse_rank(off_rank)
 
-    plot_rank(on_rev, "$D_{on}$")
-    plot_rank(off_rev, "$D_{off}$")
+    #plot_rank(on_rev, "$D_{on}$")
+    #plot_rank(off_rev, "$D_{off}$")
 
-    with open('./results/Tables/Test/all_latex.txt', 'w') as fp:
+    with open('./results/Threshold_tables/Test/all_latex.txt', 'w') as fp:
         for base in TABLE_BASES:
-            fname = './results/Tables/Test/' + base + '_latex.txt'
+            fname = './results/Threshold_tables/Test/' + base + '_latex.txt'
             with open(fname) as rf:
                 fp.write(rf.read())
 

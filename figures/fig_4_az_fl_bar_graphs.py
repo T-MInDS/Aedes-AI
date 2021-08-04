@@ -1,4 +1,4 @@
-import pandas as pd, numpy as np
+import pandas as pd, numpy as np, pdb
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
@@ -28,16 +28,17 @@ def gen_map(models, metrics, data):
 
 if __name__ == '__main__':
     
-    fil="./results/Metrics/County_Perf_Metrics.csv"
+    fil="./results/Metrics/Location_scores.csv"
     
     data=pd.read_csv(fil)
     data=data[data.Subset=='Test']
+
     metrics=['R2','RMSE','AUC_Diff','Pearson']
 
     base=np.array(["FF","LSTM","GRU"])
                      
-    az_mean, az_stds=gen_map(base,metrics,data[data.County.str.contains('Arizona')])
-    fl_mean, fl_stds=gen_map(base,metrics,data[data.County.str.contains('Florida')])  
+    az_mean, az_stds=gen_map(base,metrics,data[data.Location.str.contains('Arizona')])
+    fl_mean, fl_stds=gen_map(base,metrics,data[data.Location.str.contains('Florida')])  
 
     font={'size':16}
     plt.rc('font',**font)
@@ -68,7 +69,7 @@ if __name__ == '__main__':
 
     ax[1,0].set_ylabel('$NRMSE$')
 
-    ax[1,1].set_ylim([-0.45,0.6])
+    ax[1,1].set_ylim([-0.55,0.52])
     ax[1,1].set_ylabel('$Rel.\; AUC\; Diff.$')
     ax[1,1].legend(loc='lower right',ncol=4)
 

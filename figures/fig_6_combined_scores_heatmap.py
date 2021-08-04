@@ -2,11 +2,11 @@ import os, sys
 import pandas as pd, numpy as np
 from itertools import chain
 from glob import glob
-import math
+import math, pdb
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 sys.path.append("./utils")
-from perf_metrics import *
+from performance_metrics import *
 
 
 def sort_state(data,state):
@@ -22,7 +22,7 @@ def create_heatmap(heatmap, states, x_labels, y_labels):
     cmap='viridis'
     font={'size':16}
     mpl.rc('font',**font)
-
+   
     plt.figure(figsize=(20,10))
     plt.imshow(max(heatmap.max())-heatmap, cmap=cmap)
     plt.clim(min(heatmap.min()),max(heatmap.max()))
@@ -42,44 +42,50 @@ def create_heatmap(heatmap, states, x_labels, y_labels):
         plt.text(ln-nxt/2-0.2,-0.6,state_dict[state])
         if ln<(heatmap.shape[1]-1):
             plt.axvline(x=ln,linewidth=3,color='w')
-    #plt.savefig(ddir+"combined_heatmap.png",bbox_inches='tight', dpi=600)
+    #plt.savefig(ddir+"revised_combined_heatmap.png",bbox_inches='tight', dpi=600)
     plt.show()
  
     
 def combined_metric():
-    ddir="./results/Metrics/"
-    global_fit=pd.read_csv(ddir+"County_Perf_Metrics.csv")
+    ddir="./results/"
+    global_fit=pd.read_csv(ddir+"Metrics/Location_scores.csv")
     global_fit=global_fit[global_fit.Subset=="Test"]
-    locs=np.unique(global_fit.County)
+    global_fit=global_fit[~global_fit.Model.str.contains("LR")]
+    global_fit=global_fit[~global_fit.Model.str.contains("'")]
+    global_fit=global_fit[~global_fit.Model.str.contains("2000")]
+    global_fit=global_fit[~global_fit.Model.str.contains("120")]
+    locs=np.unique(global_fit.Location)
     models=np.unique(global_fit.Model)
     ds=np.zeros((len(models),len(locs)))
     hs=np.zeros((len(models),len(locs)))
     for i in range(0,len(models)):
-        thres_mo_off=pd.read_csv(ddir+"Threshold_tables/"+models[i].lower()+"_D_off_table.csv")
-        thres_mo_on=pd.read_csv(ddir+"Threshold_tables/"+models[i].lower()+"_D_on_table.csv")
-        for j in range(0,len(locs)):
-            subset=global_fit[(global_fit.Model==models[i]) & (global_fit.County==locs[j])]
-            m1=(1-np.sqrt(subset.R2**2*subset.Pearson**2))
-            m2=np.sqrt(subset.AUC_Diff**2+subset.RMSE**2)
-            d=np.average(np.sqrt(m1**2+m2**2))
-            ds[i,j]=d
-            thres_off=thres_mo_off[(thres_mo_off.City==locs[j].split(',')[0]) & (thres_mo_off.State==locs[j].split(',')[-1])]
-            thres_on=thres_mo_on[(thres_mo_on.City==locs[j].split(',')[0]) & (thres_mo_on.State==locs[j].split(',')[-1])]
-            Z=(1+(thres_on[["20%","40%","60%","80%"]].isna()*1).sum(axis=0)/len(thres_on))
-            for col in ["20%","40%","60%","80%"]:
-                if thres_on[col].isna().all():
-                    thres_on[col]=thres_on[col].fillna(np.mean(np.absolute(thres_mo_on[col])))
-                if thres_off[col].isna().all():
-                    thres_off[col]=thres_off[col].fillna(np.mean(np.absolute(thres_mo_off[col])))
-            ht=1/sum(Z)*sum(Z*np.sqrt(np.mean(np.absolute(thres_on[["20%","40%","60%","80%"]]))*
-                                np.std(np.absolute(thres_on[["20%","40%","60%","80%"]]))+
-                                np.mean(np.absolute(thres_off[["20%","40%","60%","80%"]]))*
-                                np.std(np.absolute(thres_off[["20%","40%","60%","80%"]]))))
-            if math.isnan(ht):
-                pdb.set_trace()
-            hs[i,j]=ht
-    ds=ds/ds.max()
-    hs=hs/hs.max()
+        if not "LR" in models[i]:
+            thres_mo_off=pd.read_csv(ddir+"Threshold_tables/Test/"+models[i].lower()+"_D_off_table.csv")
+            thres_mo_on=pd.read_csv(ddir+"Threshold_tables/Test/"+models[i].lower()+"_D_on_table.csv")
+            for j in range(0,len(locs)):
+                subset=global_fit[(global_fit.Model==models[i]) & (global_fit.Location==locs[j])]
+                m1=(1-np.sqrt(subset.R2**2*subset.Pearson**2))
+                m2=np.sqrt(subset.AUC_Diff**2+subset.RMSE**2)
+                d=np.average(np.sqrt(m1**2+m2**2))
+                ds[i,j]=d
+                thres_off=thres_mo_off[(thres_mo_off.City==locs[j].split(',')[0]) & (thres_mo_off.State==locs[j].split(',')[-1])]
+                thres_on=thres_mo_on[(thres_mo_on.City==locs[j].split(',')[0]) & (thres_mo_on.State==locs[j].split(',')[-1])]
+                Z=(1+(thres_on[["20%","40%","60%","80%"]].isna()*1).sum(axis=0)/len(thres_on))
+                for col in ["20%","40%","60%","80%"]:
+                    if thres_on[col].isna().any():
+                        thres_on[col].fillna(np.mean(np.absolute(thres_mo_on[col])), inplace=True)
+                    if thres_off[col].isna().any():
+                        thres_off[col].fillna(np.mean(np.absolute(thres_mo_off[col])), inplace=True)
+                ht=1/sum(Z)*sum(Z*np.sqrt(np.mean(np.absolute(thres_on[["20%","40%","60%","80%"]]))*
+                                    np.std(np.absolute(thres_on[["20%","40%","60%","80%"]]))+
+                                    np.mean(np.absolute(thres_off[["20%","40%","60%","80%"]]))*
+                                    np.std(np.absolute(thres_off[["20%","40%","60%","80%"]]))))
+                if math.isnan(ht):
+                    print(locs[j]+","+models[i])
+                    #hs[i,j]=max(hs.max(),100)
+                hs[i,j]=ht
+    ds=ds/np.nanmax(ds)
+    hs=hs/np.nanmax(hs)
     S=np.sqrt(ds**2+hs**2)
     S=pd.DataFrame(S,columns=locs,index=models)
     #S.to_csv(ddir+"combined_scores.csv")
@@ -88,8 +94,8 @@ def combined_metric():
 if __name__ == '__main__':
 
     scores=combined_metric()
-    states=["Arizona","Wisconsin","Texas","California","New York","Connecticut",
-            "North Carolina","New Jersey","Florida"]
+    states=["Wisconsin","California","Arizona","Connecticut","North Carolina",
+            "New York","New Jersey","Texas","Florida"]
     loc_order=list()
     for state in states:
         order=sort_state(scores,state)

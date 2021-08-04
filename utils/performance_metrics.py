@@ -47,7 +47,8 @@ def gen_county_perf_metrics(data,seasonal=False,exception=[]):
             mols=group[1]["MoLS"]
             nn=group[1]["Neural Network"]
             r2,rmse,auc_diff,pearson=score(mols,nn)
-            if (np.isfinite(r2) & np.isfinite(rmse) & np.isfinite(auc_diff) & np.isfinite(pearson)):
+            #if (np.isfinite(r2) & np.isfinite(rmse) & np.isfinite(auc_diff) & np.isfinite(pearson)):
+            if True:
                 r2s.append(r2)            
                 rmses.append(rmse)
                 auc_diffs.append(auc_diff)

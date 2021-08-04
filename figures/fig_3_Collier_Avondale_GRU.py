@@ -47,8 +47,7 @@ def main():
     filename='./results/Test/Test_gru_predictions.csv'
     ct1=('Collier','Florida','2020')
     ct2=('Avondale','Arizona','2020')
-    # modname = filename.split("_")[1]
-    modname = 'GRU'
+    modname = filename.split("_")[1].upper()
     fig, axs = plt.subplots(1, 2, figsize=(10, 5))
     plot_thresholds(filename,ct1,modname,axs[0])
     axs[0].set_ylabel('Scaled Incidence')
@@ -58,7 +57,7 @@ def main():
     fig1 = plt.gcf()
     plt.show()
     plt.draw()
-    #fig1.savefig("Collier-Avondale_"+modname+".png", dpi=300)
+    fig1.savefig("Collier-Avondale_"+modname+".png", dpi=300)
 
 if __name__ == '__main__':
     main()
