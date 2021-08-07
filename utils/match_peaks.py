@@ -148,7 +148,7 @@ def main():
 
     terms = args.results.split('_')
     #modname = '_'.join([terms[1]] + terms[3:-1])
-    directory = args.results.split('\\')[0].split('/')[-1]
+    directory = args.results.split('/')[-1].split('_')[0]
     modname=args.results.split(directory+'_')[-1].split('_predictions')[0]
 
     if args.county:
