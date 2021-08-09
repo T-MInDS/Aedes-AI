@@ -58,7 +58,7 @@ def results(data_shape, data_files, scaler, model_files, odir):
 def main():
     config_file='./models/configs/lstm_config.json'
     scaler_file='./data/data_scaler.gz'
-    model_files='./models/saved_models/*'
+    model_files='./models/saved_models/lstm*'
     odir='./results/'
 
     data_shape, data_files, scaler, model_files = load(config_file, scaler_file, model_files)

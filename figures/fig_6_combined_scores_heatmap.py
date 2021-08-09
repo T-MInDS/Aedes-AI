@@ -26,6 +26,7 @@ def create_heatmap(heatmap, states, x_labels, y_labels):
     plt.figure(figsize=(20,10))
     plt.imshow(max(heatmap.max())-heatmap, cmap=cmap)
     plt.clim(min(heatmap.min()),max(heatmap.max()))
+    pdb.set_trace()
     plt.xticks(ticks=np.arange(heatmap.shape[1]), labels=(['']*len(x_labels)))
     plt.yticks(ticks=np.arange(heatmap.shape[0]), labels=np.char.replace(np.asarray(y_labels,dtype='str'),'_',' '))
     cbar=plt.colorbar(ticks=np.arange(min(heatmap.min())+(max(heatmap.max())-1),max(heatmap.max()),0.2),
