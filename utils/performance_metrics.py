@@ -56,7 +56,7 @@ def gen_county_perf_metrics(data,seasonal=False,exception=[]):
                 locs.append(group[0][0])
                 yrs.append(group[0][1])
     results=pd.DataFrame()
-    results["Location"]=np.asarray(counties)
+    results["Location"]=np.asarray(locs)
     results["Year"]=np.asarray(yrs)
     results["R2"]=np.asarray(r2s)
     results["RMSE"]=np.asarray(rmses)
