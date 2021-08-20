@@ -1,10 +1,10 @@
 {
-    "model": "gru_model",
+    "model": "lstm_model",
     "data": {
-        "data_shape": [90, 4],
+        "data_shape": [150, 4],
         "samples_per_city": 1000,
-        "double_peak_multiplier": 3,
-        "temperature_augmentation": false
+        "summer_samples": 0,
+        "winter_samples": 0
     },
     "compile": { 
         "optimizer": "Adam",
@@ -19,6 +19,6 @@
         "training": "./data/train_data.pd",
         "validation": "./data/val_data.pd",
         "testing": "./data/test_data.pd",
-        "model": "./models/saved_models/gru_model_dpo.h5"
+        "model": "./models/saved_models/lstm_model_150.h5"
     }
 }

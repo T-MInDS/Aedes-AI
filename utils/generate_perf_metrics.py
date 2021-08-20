@@ -4,7 +4,6 @@ from sklearn.metrics import r2_score, mean_squared_error, auc
 from scipy.stats import pearsonr
 from itertools import chain
 from glob import glob
-import pdb
 import sys
 sys.path.append("./utils")
 from perf_metrics import *
@@ -33,7 +32,6 @@ def scale_loc_yr():
     columns=['County','Year','R2','RMSE','AUC_Diff','Pearson','Model','Subset']
     to_save=list(chain(*to_save))
     to_save=pd.DataFrame(np.asarray(to_save), columns=columns)
-    pdb.set_trace()
     to_save.to_csv("./results/Metrics/County_Perf_Metrics.csv",index=False)
 
 
@@ -55,7 +53,7 @@ def scale_global():
         to_save.append(np.asarray(results))
     columns=['Mean_R2','Std_R2','Mean_RMSE','Std_RMSE','Mean_AUC_Diff',
              'Std_AUC_Diff','Mean_Pearson','Std_Pearson','Subset','Model']
-    pd.DataFrame(np.asarray(to_save),columns=columns).to_csv(ddir+"Perf_Metrics.csv",index=False)
+    pd.DataFrame(np.asarray(to_save),columns=columns).to_csv("./results/Metrics/Perf_Metrics.csv",index=False)
 
 
 if __name__ == '__main__':

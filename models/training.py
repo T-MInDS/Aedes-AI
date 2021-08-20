@@ -50,15 +50,15 @@ def format_data(data, data_shape, samples_per_city, scaler=None, fit_scaler=Fals
             for i, peak in enumerate(peaks):
                 if peak[0] > (365 * (1 + len(season_intervals))):
                     # peak[0] is next season
-                    season_intervals.append((max(peaks[start][0], 90), peaks[i-1][1]))
+                    season_intervals.append((max(peaks[start][0], data_shape[0]), peaks[i-1][1]))
                     start = i
             # add final season
             season_intervals.append((peaks[start][0], peaks[-1][1]))
-            summer_indices = np.concatenate([range(*szn) for szn in season_intervals]).astype(int) - 90
+            summer_indices = np.concatenate([range(*szn) for szn in season_intervals]).astype(int) - data_shape[0]
             if summer_samples and city in summer_cities:
                 random_indices = np.concatenate([random_indices, np.random.choice(summer_indices, size = summer_samples)])
             if winter_samples and city in winter_cities:
-                all_indices = set(np.arange(len(subset) - 90, dtype=int))
+                all_indices = set(np.arange(len(subset) - data_shape[0], dtype=int))
                 winter_indices = np.array(list(all_indices.difference(summer_indices)), dtype=int)
                 random_indices = np.concatenate([random_indices, np.random.choice(winter_indices, size = winter_samples)])
 
