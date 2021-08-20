@@ -1,0 +1,24 @@
+{
+    "model": "ff_model",
+    "data": {
+        "data_shape": [90, 4],
+        "samples_per_city": 1000,
+        "summer_samples": 1000,
+        "winter_samples": 0
+    },
+    "compile": { 
+        "optimizer": "Adam",
+        "learning_rate": 0.0001,
+        "loss": "mse"
+    },
+    "fit": {
+        "batch_size": 64,
+        "epochs": 100
+    },
+    "files": {
+        "training": "./data/train_data.pd",
+        "validation": "./data/val_data.pd",
+        "testing": "./data/test_data.pd",
+        "model": "./models/saved_models/ff_model_hi.h5"
+    }
+}
