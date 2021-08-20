@@ -4,7 +4,7 @@ from glob import glob
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 sys.path.append("./utils")
-from perf_metrics import *
+from performance_metrics import *
 
 def autolabel(rects,ax):
     for rect in rects:
@@ -24,11 +24,11 @@ def autolabel(rects,ax):
 
 if __name__ == '__main__':
         
-    ddir="./results/Raw/"
-    fil1=ddir+"Test_lstm_model_predictions.csv"
-    fil2=ddir+"Test_lstm_model_dpo_predictions.csv"
-    fil3=ddir+"Test_lstm_model_dpo_ta_predictions.csv"
-    fil4=ddir+"Test_lstm_model_ta_predictions.csv"
+    ddir="./results/Test/"
+    fil1=ddir+"Test_gru_predictions.csv"
+    fil2=ddir+"Test_gru_hi_predictions.csv"
+    fil3=ddir+"Test_gru_lo_predictions.csv"
+    fil4=ddir+"Test_gru_hi_lo_predictions.csv"
 
     font={'size':18}
     mpl.rc('font',**font)
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     c3=(1,0.76,0.03)
     c4=(0,0.30,0.25)
     colors=[c1,c2,c3,c4]
-    labels=["Base","DPO","DPO TA","TA"]
+    labels=["Base","HI","LO","HI LO"]
     files=[fil1,fil2,fil3,fil4]
     styles=['--','-.','-',':']
     alphas=[1,1,0.75,1]
@@ -50,8 +50,8 @@ if __name__ == '__main__':
         for i in range(0,4):
             fil=files[i]
             data=pd.read_csv(fil)
-            mols=data[(data.Year==2020) & (data.County==co)].MoLS
-            nn=data[(data.Year==2020) & (data.County==co)]["Neural Network"]
+            mols=data[(data.Year==2020) & (data.Location==co)].MoLS
+            nn=data[(data.Year==2020) & (data.Location==co)]["Neural Network"]
             results=score(mols,nn)
             r2.append(round(results[0],3))
             rmse.append(round(results[1],3))
@@ -75,28 +75,28 @@ if __name__ == '__main__':
         ax.set_ylim([0,1.1])
         rec=ax.bar(x_bar,r2,color=[c1,c2,c3,c4])
         autolabel(rec,ax)
-        ax.set_xticklabels(["Base","Base","DPO","DPO TA","TA"])
+        ax.set_xticklabels(["Base","Base","HI","LO","HI LO"])
         ax.set_ylabel('$R_+^2$')
 
         ax=plt.subplot(2,3,3)
         ax.set_ylim([0,1.1])
         rec=ax.bar(x_bar,r,color=[c1,c2,c3,c4])
         autolabel(rec,ax)
-        ax.set_xticklabels(["Base","Base","DPO","DPO TA","TA"])
+        ax.set_xticklabels(["Base","Base","HI","LO","HI LO"])
         ax.set_ylabel('$r$')
 
         ax=plt.subplot(2,3,5)
-        ax.set_ylim([0,0.3])
+        ax.set_ylim([0,0.18])
         rec=ax.bar(x_bar,rmse,color=[c1,c2,c3,c4])
         autolabel(rec,ax)
-        ax.set_xticklabels(["Base","Base","DPO","DPO TA","TA"])
+        ax.set_xticklabels(["Base","Base","HI","LO","HI LO"])
         ax.set_ylabel('$NRMSE$')
 
         ax=plt.subplot(2,3,6)
-        ax.set_ylim([0,0.45])
+        ax.set_ylim([-0.16,0.16])
         rec=ax.bar(x_bar,auc,color=[c1,c2,c3,c4])
         autolabel(rec,ax)
-        ax.set_xticklabels(["Base","Base","DPO","DPO TA","TA"])
+        ax.set_xticklabels(["Base","Base","HI","LO","HI LO"])
         ax.set_ylabel('$Rel.\; AUC\; Diff.$') 
         index+=1
 

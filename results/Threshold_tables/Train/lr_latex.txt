@@ -1,0 +1,3 @@
+\multirow{2}{*}{LR} & Mean $D_{on}$ & nan $\pm$ nan & nan $\pm$ nan & nan $\pm$ nan & nan $\pm$ nan \\
+ & Mean $D_{off}$ & nan $\pm$ nan & nan $\pm$ nan & nan $\pm$ nan & nan $\pm$ nan\\
+\hline
