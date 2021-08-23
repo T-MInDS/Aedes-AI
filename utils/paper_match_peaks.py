@@ -15,3 +15,5 @@ files=[*trains, *vals, *tests]
 for file in files:
     print(file)
     os.system("python utils/match_peaks.py -r "+file)
+
+os.system("python utils\join_peaks.py")

@@ -23,11 +23,11 @@ def r2_keras(y_true, y_pred):
 
 
 """
-Function: smooth        
+Function: smooth_signal        
 ----------
 Use: Apply Savitzy Golay filter 
 """
-def smooth(nn):
+def smooth_signal(nn):
     nn=nn.astype(float)
     # threshold is hardcoded 11 day auto correlation of MoLS
     threshold=0.925
@@ -47,8 +47,8 @@ Use: Function scales input data between [0, 1] and formats into 90-day samples.
 
 Parameters:
   data: a dataframe of daily weather data with columns:
-          Counties, Year, Month, Day, Precipitation, Max Temp, Min Temp,
-          Humidity, MoLS (replace with 0 if no MoLS data available)co
+          Counties, Year, Month, Day, Max Temp, Min Temp, Precipitation,
+          Humidity, MoLS (replace with 0 if no MoLS data available)
           Data is a .pd file.
   data_shape: shape of one training sample for the model (90x4)
 
@@ -115,7 +115,7 @@ Returns:
             MoLS prediction for spatiotemporal location, Model prediction for spatiotemporal location
            (Opt): MinMaxScaler() scaler if fit_scaler=True
 """
-def gen_preds(model, data, data_shape, scaler=None, fit_scaler=False):
+def gen_preds(model, data, data_shape, scaler=None, fit_scaler=False, smooth=True):
     # Scale data to [0,1] and reformat to 90-day samples
     if fit_scaler==True:
         X, locs, scaler, mols = format_data(data, data_shape, None, fit_scaler)
@@ -132,10 +132,11 @@ def gen_preds(model, data, data_shape, scaler=None, fit_scaler=False):
     data_nn[:,-1]=model_preds[:,0]
     data_nn=scaler.inverse_transform(data_nn)
 
-    smooth_locs=np.unique(locs[:,0])
-    for i in range(0,len(smooth_locs)):
-        indices = np.argwhere(locs[:,0]==smooth_locs[i])
-        data_nn[indices,-1]=smooth(data_nn[indices,-1][:,0])[:,np.newaxis]
+    if smooth==True:
+        smooth_locs=np.unique(locs[:,0])
+        for i in range(0,len(smooth_locs)):
+            indices = np.argwhere(locs[:,0]==smooth_locs[i])
+            data_nn[indices,-1]=smooth_signal(data_nn[indices,-1][:,0])[:,np.newaxis]
    
     if mols==False:
         results=np.concatenate([locs,np.zeros((len(data_mols),1)),

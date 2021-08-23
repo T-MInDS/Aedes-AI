@@ -3,9 +3,15 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import pdb
 
-TABLE_BASES = ['ff', 'ff_hi', 'ff_lo', 'ff_hi_lo',
+HI_LO_BASES = ['lr', 'lr_hi', 'lr_lo', 'lr_hi_lo',
+               'ff', 'ff_hi', 'ff_lo', 'ff_hi_lo',
                'gru', 'gru_hi', 'gru_lo', 'gru_hi_lo',
                'lstm', 'lstm_hi', 'lstm_lo', 'lstm_hi_lo']
+
+VARIANT_BASES = ['ff', 'ff\'', 'ff_2000', 'ff_120',
+               'lstm', 'lstm\'', 'lstm_2000', 'lstm_120',
+               'gru', 'gru\'', 'gru_2000', 'gru_120']
+TABLE_BASES = [*HI_LO_BASES, *VARIANT_BASES]
 
 def build_table(table_bases, metric, mode):
     columns = ["Model", "20%", "40%", "60%", "80%"]
@@ -13,7 +19,8 @@ def build_table(table_bases, metric, mode):
     for base in table_bases:
         fname = './results/Threshold_tables/Test/' + base + '_' + metric + '_table.csv'
         tab = pd.read_csv(fname, header = 0)
-        #tab = tab[(tab.State=='Arizona') & (tab.City=='Avondale') & (tab.Year==2020)]
+        #tab = tab[(tab.State=='Florida') & (tab.City=='Collier') & (tab.Year==2020)]
+        #tab = tab[tab.State=='Florida']
         add_to_data = [base]
         for threshold in ["20%", "40%", "60%", "80%"]:
             if mode == 'mean':
