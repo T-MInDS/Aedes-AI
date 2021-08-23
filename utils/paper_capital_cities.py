@@ -31,7 +31,7 @@ def predict(model, data, data_shape, scaler, model_name, fit_scaler):
     results=gen_preds(model, data, data_shape, scaler, fit_scaler=False)
     return results
 
-def results(data_shape, data_file, scaler, model_file, odir):
+def results(data_shape, data_file, scaler, model_file, ofil):
     ## Generate raw results
     model_name=model_file.split('/')[-1].split('.')[0]
     model_name=model_name.replace('_model','')
@@ -42,28 +42,29 @@ def results(data_shape, data_file, scaler, model_file, odir):
         #print(model.summary())
         #load data
         data=pd.read_pickle(data_file)
+        data=data[data.Year>2011]
         results=predict(model, data, data_shape, scaler, model_name, fit_scaler=False)
         print(model_name+': '+str(r2_score(results[:,-2],results[:,-1])))
         results=pd.DataFrame(results, columns=["Location","Year","Month","Day","MoLS","Neural Network"])
-        results.to_csv(odir+"Capitals_gru_hi_predictions.csv",index=False)
+        results.to_csv(ofil,index=False)
 
 def scale_loc_yr(file, fname):
     data=pd.read_csv(file)
     data=data[data.Year>2011]
-    score_results=gen_county_perf_metrics(data)
-    columns=['Location','Year','R2','RMSE','AUC_Diff','Pearson']
+    data=data[data.Location.str.contains('45')]
+    score_results=gen_capitals_perf_metrics(data)
+    columns=['Location','R2','RMSE','AUC_Diff','Pearson']
     to_save=pd.DataFrame(score_results, columns=columns)
     to_save.to_csv(fname,index=False)
 
 def peaks(file):
     os.system("python utils/match_peaks.py -r "+file)
 
-def combined_score():
-    ddir='./results/'
-    global_fit=pd.read_csv(ddir+"Capitals/capitals_scores.csv")
+def combined_score(global_fil, on_fil, off_fil, ofil):
+    global_fit=pd.read_csv(global_fil)
     locs=np.unique(global_fit.Location)
-    thres_mo_off=pd.read_csv(ddir+"Threshold_tables/Capitals/gru_hi_D_off_table.csv")
-    thres_mo_on=pd.read_csv(ddir+"Threshold_tables/Capitals/gru_hi_D_on_table.csv")
+    thres_mo_off=pd.read_csv(off_fil)
+    thres_mo_on=pd.read_csv(on_fil)
 
     ds=np.zeros((len(locs)))
     hs=np.zeros((len(locs)))
@@ -92,9 +93,8 @@ def combined_score():
     ds=ds/np.nanmax(ds)
     hs=hs/np.nanmax(hs)
     S=np.sqrt(ds**2+hs**2)
-    S=pd.DataFrame(S,index=locs)
-    pdb.set_trace()
-    S.to_csv(ddir+"Capitals/combined_scores.csv")
+    S=pd.DataFrame(S,index=locs,columns=['Score'])
+    S.to_csv(ofil)
     return 
 
 def main():
@@ -104,13 +104,14 @@ def main():
     odir='./results/Capitals/'
 
     data_shape, scaler, model_file = load(config_file, scaler_file)
-    #results(data_shape, data_file, scaler, model_file, odir)
+    results(data_shape, data_file, scaler, model_file, odir+"Capitals_gru_hi_predictions.csv")
 
-    #scale_loc_yr(odir+'Capitals_gru_hi_predictions.csv', odir+'capitals_scores.csv')
+    scale_loc_yr(odir+'Capitals_gru_hi_predictions.csv', odir+'capitals_metrics.csv')
 
-    #peaks(odir+'Capitals_gru_hi_predictions.csv')
+    peaks(odir+'Capitals_gru_hi_predictions.csv')
 
-    combined_score()
+    combined_score(global_fil=odir+'capitals_metrics.csv',on_fil='./results/Threshold_tables/Capitals/gru_hi_D_on_table.csv',
+                   off_fil='./results/Threshold_tables/Capitals/gru_hi_D_off_table.csv', ofil='./results/Capitals/capitals_combined_scores.csv')
 
 if __name__ == '__main__':
     main()

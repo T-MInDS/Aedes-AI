@@ -78,7 +78,7 @@ if __name__ == '__main__':
     files=[*test_files, *val_files, *train_files]
 
     ddir='./results/Metrics/'
-    scale_global(files, ddir+'Global_scores.csv')
+    #scale_global(files, ddir+'Global_scores.csv')
     scale_global_means(files, ddir+'Global_mean_scores.csv')
-    scale_loc_yr(files, ddir+'Location_scores.csv')
+    #scale_loc_yr(files, ddir+'Location_scores.csv')
     
