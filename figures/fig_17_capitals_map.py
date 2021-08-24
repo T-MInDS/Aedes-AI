@@ -108,7 +108,7 @@ def create_score_map():
                                linewidth=0.45,color='dimgray')
 
     data = pd.read_csv('./results/Capitals/capitals_combined_scores.csv')
-    data = data.rename(columns={'Unnamed: 0':'State'})
+
     data = data[data.State.str.contains('45')]
     data = data[~data.State.str.contains('California')]
     data = data[~data.State.str.contains('Arizona')]

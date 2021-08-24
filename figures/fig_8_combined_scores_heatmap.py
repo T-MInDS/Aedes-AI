@@ -54,6 +54,7 @@ def combined_metric():
     global_fit=global_fit[~global_fit.Model.str.contains("'")]
     global_fit=global_fit[~global_fit.Model.str.contains("2000")]
     global_fit=global_fit[~global_fit.Model.str.contains("120")]
+    global_fit=global_fit[~global_fit.Model.str.contains("RAW")]
     locs=np.unique(global_fit.Location)
     models=np.unique(global_fit.Model)
     ds=np.zeros((len(models),len(locs)))

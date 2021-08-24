@@ -55,11 +55,11 @@ def results(data_shape, data_files, scaler, model_files, odir):
                 results=pd.DataFrame(results, columns=["Location","Year","Month","Day","MoLS","Neural Network"])
                 results.to_csv(odir+subset_name+'/'+subset_name+"_"+model_name+"_predictions.csv",index=False)   
 
-def raw_gru(data_shape, data_file, scaler, model_file, odir):
+def raw(data_shape, data_file, scaler, model_file, ofil):
     #load model
     if os.path.exists(model_file):
         model = tf.keras.models.load_model(model_file,custom_objects={"r2_keras":r2_keras})
-        print(': LOADED')
+        print('LOADED')
         #print(model.summary())
         subset_name=data_file.split('data/')[-1].split('_data')[0].capitalize()
         #load data
@@ -68,18 +68,22 @@ def raw_gru(data_shape, data_file, scaler, model_file, odir):
         results=predict(model, data, data_shape, scaler, fit_scaler=False, smooth=False)
         print(subset_name+': '+str(r2_score(results[:,-2],results[:,-1])))
         results=pd.DataFrame(results, columns=["Location","Year","Month","Day","MoLS","Neural Network"])
-        results.to_csv(odir+subset_name+'/'+subset_name+"_ff_raw_predictions.csv",index=False)   
+        results.to_csv(ofil,index=False)   
      
 
 def main():
     config_file='./models/configs/lstm_config.json'
     scaler_file='./data/data_scaler.gz'
-    model_files='./models/saved_models/*'
+    model_files='./models/saved_models/lstm_model_lo*'
     odir='./results/'
 
     data_shape, data_files, scaler, model_files = load(config_file, scaler_file, model_files)
     results(data_shape, data_files, scaler, model_files, odir)
-    raw_gru(data_shape=data_shape, data_file='./data/test_data.pd', scaler=scaler, model_file='./models/saved_models\\ff_model.h5', odir=odir)
+    models=['FF','LSTM','GRU']
+    for model in models:
+        raw(data_shape=data_shape, data_file='./data/test_data.pd', scaler=scaler,
+                model_file='./models/saved_models\\{}_model.h5'.format(model.lower()),
+                ofil=odir+'Test/Test_{}_raw_predictions.csv'.format(model.lower()))
 
 if __name__ == '__main__':
     main()

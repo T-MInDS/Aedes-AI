@@ -46,6 +46,7 @@ def main():
     capital_cities=capital_cities[~capital_cities.Location.str.contains('Delaware')]
     capital_cities=capital_cities[~capital_cities.Location.str.contains('New Jersey')]
     capital_cities=capital_cities[~capital_cities.Location.str.contains('North Carolina')]
+    capital_cities=capital_cities[~capital_cities.Location.str.contains('85')]
     capital_cities.to_pickle('./data/capitals.pd')
 
 if __name__ == '__main__':

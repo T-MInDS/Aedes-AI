@@ -15,11 +15,11 @@ def smoothing_corr():
     data = pd.read_pickle('./data/train_data.pd')
     grouped = data.groupby(['Location'])
 
-    lags = np.arange(0,20)
+    max_lag=20
 
-    plt_data = np.zeros([len(lags), 4])
+    plt_data = np.zeros([max_lag, 4])
 
-    for lag in lags:
+    for lag in tqdm(range(0, max_lag), desc='Progress'):
         for group in grouped:
             max_temp = group[1].Max_Temp.astype('float')
             min_temp = group[1].Min_Temp.astype('float')
@@ -37,7 +37,7 @@ def smoothing_corr():
 
     plt.figure()
     plt.plot(plt_data)
-    plt.xticks(np.arange(0,len(lags),2))
+    plt.xticks(np.arange(0,max_lag,2))
     plt.xlabel('Lag (Days)')
     plt.ylabel('Average Sample Autocorrelation')
     plt.legend(['Max. Temp.', 'Min. Temp.', 'Precip.', 'RH'])#, 'MoLS'])
