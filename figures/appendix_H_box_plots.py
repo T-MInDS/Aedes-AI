@@ -47,15 +47,16 @@ if __name__ == '__main__':
 
     season_fil=ddir+"Threshold_tables/Capitals/"
     
-    files=[season_fil+"D_on.csv", season_fil+"D_off.csv"]
+    files=[season_fil+"gru_hi_D_on_table.csv", season_fil+"gru_hi_D_off_table.csv"]
     cols=['20%', '40%', '60%', '80%']
     
     fig, axs=plt.subplots(1, 2, figsize=(14,6))
     idx=0
     for fil in files:
         data=pd.read_csv(fil)
-        pdb.set_trace()
+        data=data[data.Year>2011]
         data=data.dropna()
+        data=data.groupby(['State']).mean()
         for col in cols:
             # finding the 1st quartile
             q1 = np.quantile(data[col], 0.25)
@@ -70,7 +71,7 @@ if __name__ == '__main__':
             # finding upper and lower whiskers
             upper_bound = q3+(1.5*iqr)
             lower_bound = q1-(1.5*iqr)
-            outliers = data[(data[col] <= lower_bound) | (data[col] >= upper_bound)][['Location']].values
+            outliers = data[(data[col] <= lower_bound) | (data[col] >= upper_bound)].index
             print('The following are the outliers in the {} boxplot:{}'.format(col, np.unique(outliers)))
         dataset=[data['20%'], data['40%'], data['60%'], data['80%']]
         axs[idx].boxplot(dataset, labels=data.columns[-4:], vert=False)#, sym="")

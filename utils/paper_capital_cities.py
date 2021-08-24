@@ -93,7 +93,7 @@ def combined_score(global_fil, on_fil, off_fil, ofil):
     ds=ds/np.nanmax(ds)
     hs=hs/np.nanmax(hs)
     S=np.sqrt(ds**2+hs**2)
-    S=pd.DataFrame(S,index=locs,columns=['Score'])
+    S=pd.DataFrame(np.concatenate([locs[:,np.newaxis],S[:,np.newaxis]],axis=1),columns=['State','Score'])
     S.to_csv(ofil)
     return 
 

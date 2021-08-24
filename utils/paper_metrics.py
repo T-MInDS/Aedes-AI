@@ -38,6 +38,7 @@ def scale_global_means(files, fname):
     to_save=list()
     for file in files:
         data=pd.read_csv(file)
+        data=data[data.Year>2011]
         #data=data[data.County.str.contains('Arizona')]
         if "Train" in file:
             subset="Train"
@@ -58,6 +59,7 @@ def scale_global(files, fname):
     to_save=list()
     for file in files:
         data=pd.read_csv(file)
+        data=data[data.Year>2011]
         if "Train" in file:
             subset="Train"
         elif "Test" in file:
@@ -78,7 +80,7 @@ if __name__ == '__main__':
     files=[*test_files, *val_files, *train_files]
 
     ddir='./results/Metrics/'
-    #scale_global(files, ddir+'Global_scores.csv')
+    scale_global(files, ddir+'Global_scores.csv')
     scale_global_means(files, ddir+'Global_mean_scores.csv')
-    #scale_loc_yr(files, ddir+'Location_scores.csv')
+    scale_loc_yr(files, ddir+'Location_scores.csv')
     

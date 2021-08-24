@@ -13,7 +13,8 @@ files=[*trains, *vals, *tests]
 #files=trains
 
 for file in files:
-    print(file)
-    os.system("python utils/match_peaks.py -r "+file)
+    if not 'raw' in file:
+        print(file)
+        os.system("python utils/match_peaks.py -r "+file)
 
-os.system("python utils\join_peaks.py")
+os.system("python utils\join_tables.py")
