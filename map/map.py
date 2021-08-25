@@ -17,7 +17,10 @@ if __name__ == '__main__':
     m = Basemap(llcrnrlon=-130, llcrnrlat=25, urcrnrlon=-65.,urcrnrlat=52.,
                 resolution='i', lat_0 = 40., lon_0 = -80)
 
-    m.readshapefile('./map/st99_d00','states',drawbounds=True,
+
+    # From US Census Bureau
+    # https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html
+    m.readshapefile('./map/cb_2018_us_state_20m','states',drawbounds=True,
                             linewidth=0.75,color='gray')
     
     m.drawcounties(color='gray')

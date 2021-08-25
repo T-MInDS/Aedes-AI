@@ -30,8 +30,8 @@ def create_avg_mols():
 
     #%% ---------   draw state boundaries  ----------------------------------------
     ## data from U.S Census Bureau
-    ## http://www.census.gov/geo/www/cob/st2000.html
-    shp_info = m.readshapefile('./figures/st99_d00','states',drawbounds=True,
+    ## https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html
+    shp_info = m.readshapefile('./figures/cb_2018_us_state_20m','states',drawbounds=True,
                                linewidth=0.45,color='dimgray')
 
     data = pd.read_csv('./results/Capitals/Capitals_gru_hi_predictions.csv')
@@ -103,8 +103,9 @@ def create_score_map():
 
     #%% ---------   draw state boundaries  ----------------------------------------
     ## data from U.S Census Bureau
-    ## http://www.census.gov/geo/www/cob/st2000.html
-    shp_info = m.readshapefile('./figures/st99_d00','states',drawbounds=True,
+    ## https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html
+    
+    shp_info = m.readshapefile('./figures/cb_2018_us_state_20m','states',drawbounds=True,
                                linewidth=0.45,color='dimgray')
 
     data = pd.read_csv('./results/Capitals/capitals_combined_scores.csv')
