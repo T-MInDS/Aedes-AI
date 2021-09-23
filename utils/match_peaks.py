@@ -149,6 +149,7 @@ def main():
 
     terms = args.results.split('_')
     #modname = '_'.join([terms[1]] + terms[3:-1])
+
     if 'Train' in args.results:
         directory='Train'
     elif 'Test' in args.results:
