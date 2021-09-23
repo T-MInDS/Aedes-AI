@@ -94,7 +94,7 @@ def main():
     else:
         model = getattr(models, config['model'])(config['data']['data_shape'])
      
-    summer_cities = set(pd.read_csv(os.path.expanduser('./data/double_peak.csv'), squeeze=True, index_col=0))
+    summer_cities = set(pd.read_csv(os.path.expanduser('./data/hi_locs.csv'), squeeze=True, index_col=0))
     winter_cities = {"Dane,Wisconsin", "Milwaukee,Wisconsin", "New Haven,Connecticut", "Bronx,New York", "Kings,New York",
                      "Monmouth,New Jersey", "Mono,California", "Monterey,California", "Morris,New Jersey", "Napa,California",
                      "Nassau,New York", "New Hanover,North Carolina", "New River,Arizona", "Okaloosa,Florida", "Orange,California",
